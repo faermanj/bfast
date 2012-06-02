@@ -1,10 +1,12 @@
 package jfaerman.bfast.store;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import java.util.Collection;
 import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Alternative;
+import javax.enterprise.inject.New;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -12,7 +14,6 @@ import jfaerman.bfast.cfg.OrdersCache;
 import jfaerman.bfast.model.Order;
 
 import org.infinispan.Cache;
-import static java.util.concurrent.TimeUnit.*;
 
 @Alternative
 @Singleton
@@ -29,7 +30,8 @@ public class InfinispanOrderStore implements OrderStore {
 
 	@Override
 	public Order put(Order order) {
-		return orders.put(order.getUuid(), order);
+	  orders.put(order.getUuid(), order);
+	  return order;
 	}
 
 	@Override
@@ -42,10 +44,15 @@ public class InfinispanOrderStore implements OrderStore {
 		return orders.put(order.getUuid(), order, UNLIMITED, SECONDS, maxIdle, SECONDS);
 	} 
 
-	@PostConstruct
-	public void init(){
-		log.info("* Initializing Infinispan Order Store *");
-		orders.addListener(new FatListener());
+	@Inject
+	public void registerFatListener(@New FatListener fatListener){
+		log.info("\n* Initializing Infinispan Order Store *\n");
+		//orders.addListener(fatListener);
 	}
+
+  @Override
+  public long count() {
+    return orders.size();
+  }
 
 }

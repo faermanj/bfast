@@ -1,7 +1,19 @@
 package jfaerman.bfast.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="Orders")
+@NamedQueries({
+  @NamedQuery(name="order.all", query="select o from Order o"),
+  @NamedQuery(name="order.count",query="select count(o) from Order o")
+})
 public class Order {
+  @Id
 	private String uuid;
 	private String customerName;
 	private String description;
@@ -35,7 +47,7 @@ public class Order {
 
 	public boolean isFat() {
 		return description != null &&
-			 ( description.contains("bacon") 
+			 ( description.toLowerCase().contains("bacon") 
 			|| description.length() > 20);
 	}
 	

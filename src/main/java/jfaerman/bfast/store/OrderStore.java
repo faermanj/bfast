@@ -14,5 +14,7 @@ public interface OrderStore {
 
 	Order get(String uuid);
 	
+	long count();
+	
 
 }

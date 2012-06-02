@@ -1,6 +1,7 @@
 package jfaerman.bfast.rest;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import javax.inject.Inject;
 import javax.ws.rs.DefaultValue;
@@ -19,24 +20,33 @@ import jfaerman.bfast.store.OrderStore;
 @Path("orders")
 @Produces(APPLICATION_JSON)
 public class OrdersResource {
-	
-	@Inject OrderStore orderStore;
-	
-	@GET
-	public Collection<Order> findAll(){
-		return orderStore.findAll();
-	}
-	
-	@PUT
-	public Order put(Order order, @QueryParam("maxIdle") @DefaultValue("3600") Integer maxIdle){
-		return orderStore.put(order,maxIdle);
-	}
-	
-	@GET
-	@Path("{uuid}")
-	public Order get(@PathParam("uuid") String uuid){
-		return orderStore.get(uuid);
-	}
-	
-	
+
+  @Inject
+  OrderStore orderStore;
+
+  @GET
+  public Collection<Order> findAll() {
+    return orderStore.findAll();
+  }
+
+  @PUT
+  public Order put(Order order,
+      @QueryParam("maxIdle") @DefaultValue("3600") Integer maxIdle) {
+    return orderStore.put(order, maxIdle);
+  }
+
+  @GET
+  @Path("{uuid}")
+  public Order get(@PathParam("uuid") String uuid) {
+    return orderStore.get(uuid);
+  }
+
+  @PUT
+  @GET
+  @Path("putRandom")
+  public Order putRandom() {
+    String uuid = UUID.randomUUID().toString();
+    return orderStore.put(new Order(uuid,"Random name "+uuid,"Random order "+uuid));
+  }
+
 }

@@ -24,6 +24,7 @@ public class DataGenerator {
 		orderStore.put(new Order("0c738668-079f-4f76-b9df-f7b416eb4188","David Gilmour","Tea & Toast"));
 		orderStore.put(new Order("e31a3c8e-64ff-4dd2-93df-bc5eb5f8a0b6","Lemmy","Jack & Coke"));
 		orderStore.put(new Order("59861dea-0c3d-4c8a-8333-51e69707e088","Scott Gorham","Whiskey in the Jar"));
+		orderStore.put(new Order("e3f0a762-e89b-45cc-a674-d74fdbf2f0be","Mark Farner","Bacon & Eggs"));
 		
 	}
 	

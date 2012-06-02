@@ -7,6 +7,12 @@
         http://java.sun.com/xml/ns/javaee 
         http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
 	<alternatives>
-		<class>jfaerman.bfast.store.InfinispanOrderStore</class>
+	  <!-- 
+	  <class>jfaerman.bfast.store.JPAOrderStore</class>
+	  <class>jfaerman.bfast.store.InfinispanOrderStore</class>
+		    -->
+		<class>jfaerman.bfast.store.HashMapOrderStore</class>
+    
+		
 	</alternatives>
-</beans>
+</beans> 
